@@ -14,7 +14,7 @@
       href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,800&family=Inter:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     >
-    <link rel="stylesheet" href="styles.css?v=text-layout-1">
+    <link rel="stylesheet" href="styles.css?v=contact-api-1">
   </head>
   <body id="top">
     <header class="site-header" data-header>
@@ -266,7 +266,11 @@
             </p>
           </div>
 
-          <form class="contact-form reveal" action="mailto:hello@adnilo.co" method="post" enctype="text/plain">
+          <form class="contact-form reveal" action="/api/contact" method="post" data-contact-form>
+            <label class="form-honeypot" aria-hidden="true">
+              <span>Leave this field empty</span>
+              <input type="text" name="company_website" tabindex="-1" autocomplete="off">
+            </label>
             <label>
               <span>Name</span>
               <input type="text" name="name" autocomplete="name" required>
@@ -298,6 +302,7 @@
               <textarea name="message" rows="5" placeholder="What service do you sell, and where do you want more leads?"></textarea>
             </label>
             <button class="btn btn-primary form-button" type="submit">Request Free Audit</button>
+            <p class="form-status" role="status" aria-live="polite" data-form-status></p>
           </form>
         </div>
       </section>
@@ -317,6 +322,6 @@
       </div>
     </footer>
 
-    <script src="script.js?v=tap-fix-1"></script>
+    <script src="script.js?v=contact-api-1"></script>
   </body>
 </html>

@@ -225,7 +225,11 @@ function heroVisual(service) {
 
 function contactForm(buttonText) {
   return `
-    <form class="contact-form reveal" action="mailto:hello@adnilo.co" method="post" enctype="text/plain">
+    <form class="contact-form reveal" action="/api/contact" method="post" data-contact-form>
+      <label class="form-honeypot" aria-hidden="true">
+        <span>Leave this field empty</span>
+        <input type="text" name="company_website" tabindex="-1" autocomplete="off">
+      </label>
       <label>
         <span>Name</span>
         <input type="text" name="name" autocomplete="name" required>
@@ -257,6 +261,7 @@ function contactForm(buttonText) {
         <textarea name="message" rows="5" placeholder="Tell us what you sell, where you work, and what you want fixed."></textarea>
       </label>
       <button class="btn btn-primary form-button" type="submit">${esc(buttonText)}</button>
+      <p class="form-status" role="status" aria-live="polite" data-form-status></p>
     </form>
   `;
 }

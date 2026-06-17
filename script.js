@@ -5,6 +5,7 @@ const navLinks = document.querySelectorAll("[data-site-nav] a");
 const serviceMenuToggle = document.querySelector("[data-service-menu-toggle]");
 const serviceDropdown = document.querySelector(".nav-dropdown");
 const revealItems = document.querySelectorAll(".reveal");
+const contactForms = document.querySelectorAll("[data-contact-form]");
 const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 const mobileNavQuery = window.matchMedia("(max-width: 980px)");
 
@@ -101,6 +102,51 @@ document.addEventListener("click", (event) => {
   if (document.body.classList.contains("nav-open") && siteHeader && !siteHeader.contains(event.target)) {
     setNavOpen(false);
   }
+});
+
+contactForms.forEach((form) => {
+  const submitButton = form.querySelector('button[type="submit"]');
+  const status = form.querySelector("[data-form-status]");
+
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    if (!form.reportValidity() || !submitButton || !status) return;
+
+    const originalButtonText = submitButton.textContent;
+    const formData = new FormData(form);
+    const payload = Object.fromEntries(formData.entries());
+    payload.page = `${document.title} (${window.location.pathname})`;
+
+    submitButton.disabled = true;
+    submitButton.setAttribute("aria-busy", "true");
+    submitButton.textContent = "Sending...";
+    status.textContent = "";
+    status.className = "form-status";
+
+    try {
+      const response = await fetch(form.action, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const result = await response.json().catch(() => ({}));
+
+      if (!response.ok) {
+        throw new Error(result.error || "We could not send your enquiry. Please try again.");
+      }
+
+      form.reset();
+      status.textContent = result.message || "Thanks. Your enquiry has been sent.";
+      status.classList.add("is-success");
+    } catch (error) {
+      status.textContent = error.message || "We could not send your enquiry. Please try again.";
+      status.classList.add("is-error");
+    } finally {
+      submitButton.disabled = false;
+      submitButton.removeAttribute("aria-busy");
+      submitButton.textContent = originalButtonText;
+    }
+  });
 });
 
 if ("IntersectionObserver" in window) {
