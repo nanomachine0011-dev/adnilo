@@ -3,6 +3,14 @@ const navLinks = document.querySelectorAll("[data-site-nav] a");
 const serviceMenuToggle = document.querySelector("[data-service-menu-toggle]");
 const serviceDropdown = document.querySelector(".nav-dropdown");
 const revealItems = document.querySelectorAll(".reveal");
+const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+document.documentElement.classList.add("motion-ready");
+document.documentElement.dataset.motion = reducedMotionQuery.matches ? "reduced" : "full";
+
+reducedMotionQuery.addEventListener?.("change", (event) => {
+  document.documentElement.dataset.motion = event.matches ? "reduced" : "full";
+});
 
 function updateScrollState() {
   document.body.classList.toggle("has-scrolled", window.scrollY > 18);
