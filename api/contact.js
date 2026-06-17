@@ -1,5 +1,7 @@
 const RESEND_API_URL = "https://api.resend.com/emails";
 const MAX_BODY_BYTES = 24_000;
+const SUCCESS_MESSAGE = "Thanks — your enquiry has been sent.";
+const ERROR_MESSAGE = "We could not send your enquiry. Please try again.";
 
 const fieldLimits = {
   name: 120,
@@ -45,19 +47,19 @@ module.exports = async function contactHandler(req, res) {
 
   const contentLength = Number(req.headers["content-length"] || 0);
   if (contentLength > MAX_BODY_BYTES) {
-    return sendJson(res, 413, { error: "Submission is too large." });
+    return sendJson(res, 413, { error: ERROR_MESSAGE });
   }
 
   let body;
   try {
     body = parseBody(req.body);
   } catch {
-    return sendJson(res, 400, { error: "Invalid submission." });
+    return sendJson(res, 400, { error: ERROR_MESSAGE });
   }
 
   // Quietly accept honeypot submissions so automated senders get no useful signal.
   if (clean(body.company_website, 200)) {
-    return sendJson(res, 200, { ok: true, message: "Thanks. Your enquiry has been sent." });
+    return sendJson(res, 200, { ok: true, message: SUCCESS_MESSAGE });
   }
 
   const lead = Object.fromEntries(
@@ -66,11 +68,11 @@ module.exports = async function contactHandler(req, res) {
 
   const requiredFields = ["name", "business_name", "phone", "monthly_ad_budget"];
   if (requiredFields.some((field) => !lead[field])) {
-    return sendJson(res, 400, { error: "Please complete all required fields." });
+    return sendJson(res, 400, { error: ERROR_MESSAGE });
   }
 
   if (lead.website && !/^https?:\/\//i.test(lead.website)) {
-    return sendJson(res, 400, { error: "Please enter a complete website address." });
+    return sendJson(res, 400, { error: ERROR_MESSAGE });
   }
 
   const apiKey = process.env.RESEND_API_KEY;
@@ -78,9 +80,7 @@ module.exports = async function contactHandler(req, res) {
 
   if (!apiKey || !toEmail) {
     console.error("[contact] Required Vercel environment variables are missing.");
-    return sendJson(res, 503, {
-      error: "The form is temporarily unavailable. Please try again later.",
-    });
+    return sendJson(res, 503, { error: ERROR_MESSAGE });
   }
 
   const labels = {
@@ -120,29 +120,33 @@ module.exports = async function contactHandler(req, res) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        from: "Adnilo Website <onboarding@resend.dev>",
+        from: "Adnilo <hello@adnilo.co.uk>",
         to: [toEmail],
         subject: "New Adnilo lead",
         text,
         html,
       }),
     });
-  } catch {
-    console.error("[contact] Resend could not be reached.");
-    return sendJson(res, 502, {
-      error: "We could not send your enquiry. Please try again.",
+  } catch (error) {
+    console.error("[contact] Resend request failed.", {
+      name: error?.name || "Error",
+      message: error?.message || "Unknown server error",
     });
+    return sendJson(res, 502, { error: ERROR_MESSAGE });
   }
 
   if (!resendResponse.ok) {
-    console.error(`[contact] Resend returned status ${resendResponse.status}.`);
-    return sendJson(res, 502, {
-      error: "We could not send your enquiry. Please try again.",
+    const resendError = await resendResponse.json().catch(() => ({}));
+    console.error("[contact] Resend rejected the email.", {
+      status: resendResponse.status,
+      name: resendError.name || "ResendError",
+      message: resendError.message || resendResponse.statusText || "Unknown Resend error",
     });
+    return sendJson(res, 502, { error: ERROR_MESSAGE });
   }
 
   return sendJson(res, 200, {
     ok: true,
-    message: "Thanks. Your enquiry has been sent.",
+    message: SUCCESS_MESSAGE,
   });
 };

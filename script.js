@@ -8,6 +8,8 @@ const revealItems = document.querySelectorAll(".reveal");
 const contactForms = document.querySelectorAll("[data-contact-form]");
 const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 const mobileNavQuery = window.matchMedia("(max-width: 980px)");
+const formSuccessMessage = "Thanks — your enquiry has been sent.";
+const formErrorMessage = "We could not send your enquiry. Please try again.";
 
 document.documentElement.classList.add("motion-ready");
 document.documentElement.dataset.motion = reducedMotionQuery.matches ? "reduced" : "full";
@@ -132,14 +134,14 @@ contactForms.forEach((form) => {
       const result = await response.json().catch(() => ({}));
 
       if (!response.ok) {
-        throw new Error(result.error || "We could not send your enquiry. Please try again.");
+        throw new Error(result.error || formErrorMessage);
       }
 
       form.reset();
-      status.textContent = result.message || "Thanks. Your enquiry has been sent.";
+      status.textContent = result.message || formSuccessMessage;
       status.classList.add("is-success");
     } catch (error) {
-      status.textContent = error.message || "We could not send your enquiry. Please try again.";
+      status.textContent = error.message || formErrorMessage;
       status.classList.add("is-error");
     } finally {
       submitButton.disabled = false;
