@@ -1,9 +1,12 @@
 const menuToggle = document.querySelector("[data-menu-toggle]");
+const siteNav = document.querySelector("[data-site-nav]");
+const siteHeader = document.querySelector(".site-header");
 const navLinks = document.querySelectorAll("[data-site-nav] a");
 const serviceMenuToggle = document.querySelector("[data-service-menu-toggle]");
 const serviceDropdown = document.querySelector(".nav-dropdown");
 const revealItems = document.querySelectorAll(".reveal");
 const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+const mobileNavQuery = window.matchMedia("(max-width: 980px)");
 
 document.documentElement.classList.add("motion-ready");
 document.documentElement.dataset.motion = reducedMotionQuery.matches ? "reduced" : "full";
@@ -16,9 +19,23 @@ function updateScrollState() {
   document.body.classList.toggle("has-scrolled", window.scrollY > 18);
 }
 
+function syncNavInteraction() {
+  if (!siteNav) return;
+
+  const isClosedOnMobile = mobileNavQuery.matches && !document.body.classList.contains("nav-open");
+  siteNav.inert = isClosedOnMobile;
+
+  if (isClosedOnMobile) {
+    siteNav.setAttribute("aria-hidden", "true");
+  } else {
+    siteNav.removeAttribute("aria-hidden");
+  }
+}
+
 function setNavOpen(isOpen) {
   document.body.classList.toggle("nav-open", isOpen);
   menuToggle?.setAttribute("aria-expanded", String(isOpen));
+  syncNavInteraction();
 }
 
 function setServiceMenuOpen(isOpen) {
@@ -47,7 +64,9 @@ serviceDropdown?.addEventListener("focusout", () => {
 });
 
 updateScrollState();
+syncNavInteraction();
 window.addEventListener("scroll", updateScrollState, { passive: true });
+mobileNavQuery.addEventListener?.("change", () => setNavOpen(false));
 
 navLinks.forEach((link) => {
   link.addEventListener("click", () => {
@@ -77,6 +96,10 @@ document.addEventListener("click", (event) => {
 
   if (serviceDropdown && !serviceDropdown.contains(event.target)) {
     setServiceMenuOpen(false);
+  }
+
+  if (document.body.classList.contains("nav-open") && siteHeader && !siteHeader.contains(event.target)) {
+    setNavOpen(false);
   }
 });
 

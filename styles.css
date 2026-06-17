@@ -361,6 +361,20 @@ body.has-scrolled .site-header {
   pointer-events: none;
 }
 
+.hero-art,
+.hero-wash,
+.hero-motion,
+.hero-glow,
+.hero-object,
+.service-floats,
+.service-float,
+.service-visual,
+.founder-shape,
+.section::before,
+.section::after {
+  pointer-events: none;
+}
+
 .hero-glow,
 .hero-object {
   position: absolute;
@@ -2191,9 +2205,10 @@ h3 {
     border-radius: 8px;
     box-shadow: 0 20px 40px rgba(23, 16, 39, 0.24);
     opacity: 0;
+    visibility: hidden;
     pointer-events: none;
     transform: translateY(-12px);
-    transition: opacity 180ms ease, transform 180ms ease;
+    transition: opacity 180ms ease, transform 180ms ease, visibility 0s linear 180ms;
   }
 
   .nav-dropdown {
@@ -2246,8 +2261,15 @@ h3 {
 
   .nav-open .site-nav {
     opacity: 1;
+    visibility: visible;
     pointer-events: auto;
     transform: translateY(0);
+    transition-delay: 0s;
+  }
+
+  body:not(.nav-open) .site-nav,
+  body:not(.nav-open) .site-nav * {
+    pointer-events: none;
   }
 
   .header-cta {
