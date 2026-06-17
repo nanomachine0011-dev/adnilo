@@ -520,6 +520,23 @@ h2 {
   line-height: 0.98;
 }
 
+h1,
+h2,
+h3 {
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-break: normal;
+}
+
+.section-copy,
+.section-heading,
+.body-copy,
+.card,
+.service-link-card,
+.result-card {
+  min-width: 0;
+}
+
 h1 {
   max-width: 900px;
   margin: 0 auto 24px;
@@ -2418,7 +2435,8 @@ h3 {
 
   h1 {
     max-width: 560px;
-    font-size: 3.35rem;
+    font-size: 3.15rem;
+    line-height: 1.04;
   }
 
   .service-hero {
@@ -2427,7 +2445,8 @@ h3 {
   }
 
   .service-hero h1 {
-    font-size: 2.7rem;
+    font-size: 2.5rem;
+    line-height: 1.08;
   }
 
   .service-hero-copy {
@@ -2445,8 +2464,8 @@ h3 {
   }
 
   h2 {
-    font-size: 2.18rem;
-    line-height: 1.04;
+    font-size: 2.05rem;
+    line-height: 1.1;
   }
 
   .hero-subtitle {
@@ -2586,15 +2605,18 @@ h3 {
   }
 
   h1 {
-    font-size: 2.75rem;
+    font-size: 2.5rem;
+    line-height: 1.08;
   }
 
   .service-hero h1 {
-    font-size: 2.3rem;
+    font-size: 2.05rem;
+    line-height: 1.1;
   }
 
   h2 {
-    font-size: 1.92rem;
+    font-size: 1.75rem;
+    line-height: 1.12;
   }
 
   .btn {
