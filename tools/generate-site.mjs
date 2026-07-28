@@ -1312,7 +1312,6 @@ writeFileSync(
   "vercel.json",
   `${JSON.stringify(
     {
-      trailingSlash: false,
       redirects: redirectRules,
       headers: [
         {
