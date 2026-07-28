@@ -1,6 +1,8 @@
 {
   "name": "Adnilo",
   "short_name": "Adnilo",
+  "description": "Google Ads and lead generation for local service businesses.",
+  "start_url": "/",
   "icons": [
     {
       "src": "/assets/android-chrome-192x192.png",

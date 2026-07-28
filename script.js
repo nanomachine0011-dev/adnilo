@@ -39,6 +39,13 @@ function setNavOpen(isOpen) {
   document.body.classList.toggle("nav-open", isOpen);
   menuToggle?.setAttribute("aria-expanded", String(isOpen));
   syncNavInteraction();
+
+  if (isOpen) {
+    window.setTimeout(() => siteNav?.querySelector("button, a")?.focus({ preventScroll: true }), 0);
+  } else {
+    setServiceMenuOpen(false);
+    menuToggle?.focus({ preventScroll: true });
+  }
 }
 
 function setServiceMenuOpen(isOpen) {

@@ -75,6 +75,10 @@ module.exports = async function contactHandler(req, res) {
     return sendJson(res, 400, { error: ERROR_MESSAGE });
   }
 
+  if (!/^[0-9+()\s.-]{7,}$/.test(lead.phone)) {
+    return sendJson(res, 400, { error: ERROR_MESSAGE });
+  }
+
   const apiKey = process.env.RESEND_API_KEY;
   const toEmail = process.env.CONTACT_TO_EMAIL;
 
