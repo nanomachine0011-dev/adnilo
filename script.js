@@ -6,10 +6,17 @@ const serviceMenuToggle = document.querySelector("[data-service-menu-toggle]");
 const serviceDropdown = document.querySelector(".nav-dropdown");
 const revealItems = document.querySelectorAll(".reveal");
 const contactForms = document.querySelectorAll("[data-contact-form]");
+const packageLinks = document.querySelectorAll("[data-package-select-link]");
 const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 const mobileNavQuery = window.matchMedia("(max-width: 980px)");
 const formSuccessMessage = "Thanks — your enquiry has been sent.";
 const formErrorMessage = "We could not send your enquiry. Please try again.";
+const packageChoices = {
+  starter: { value: "Starter - From £300", name: "Starter", price: "From £300" },
+  growth: { value: "Growth - £599", name: "Growth", price: "£599" },
+  scale: { value: "Scale - £999+", name: "Scale", price: "£999+" },
+};
+const selectedPackageSlug = new URLSearchParams(window.location.search).get("package")?.toLowerCase() || "";
 
 document.documentElement.classList.add("motion-ready");
 document.documentElement.dataset.motion = reducedMotionQuery.matches ? "reduced" : "full";
@@ -113,9 +120,78 @@ document.addEventListener("click", (event) => {
   }
 });
 
+function selectedPackageFromSelect(select) {
+  const option = select?.selectedOptions?.[0];
+  if (!option?.value) return null;
+
+  return {
+    slug: option.dataset.packageSlug || "",
+    name: option.dataset.packageName || option.textContent.trim(),
+    price: option.dataset.packagePrice || "",
+    value: option.value,
+  };
+}
+
+function updatePackageSummary(form) {
+  const wrapper = form.closest("[data-contact-form-wrap]");
+  const summary = wrapper?.querySelector("[data-package-summary]");
+  const nameTarget = wrapper?.querySelector("[data-selected-package-name]");
+  const noteTarget = wrapper?.querySelector("[data-selected-package-note]");
+  const selected = selectedPackageFromSelect(form.querySelector("[data-package-select]"));
+
+  if (!summary || !nameTarget || !noteTarget) return;
+
+  if (!selected) {
+    summary.hidden = true;
+    nameTarget.textContent = "";
+    noteTarget.textContent = "";
+    return;
+  }
+
+  summary.hidden = false;
+  nameTarget.textContent = `${selected.name} package`;
+  noteTarget.textContent = `${selected.price} selected. You can still change this before sending your enquiry.`;
+}
+
+function preselectPackage(form) {
+  const select = form.querySelector("[data-package-select]");
+  const selectedPackage = packageChoices[selectedPackageSlug];
+  if (!select || !selectedPackage) return;
+
+  select.value = selectedPackage.value;
+}
+
+function trackPackageSelection(link) {
+  const detail = {
+    package_name: link.dataset.packageName || "",
+    package_price: link.dataset.packagePrice || "",
+    source_page: link.dataset.packageSource || window.location.pathname || "/",
+  };
+
+  if (window.dataLayer && typeof window.dataLayer.push === "function") {
+    window.dataLayer.push({ event: "package_selected", ...detail });
+  }
+
+  if (typeof window.gtag === "function") {
+    window.gtag("event", "package_selected", detail);
+  }
+
+  window.dispatchEvent(new CustomEvent("package_selected", { detail }));
+}
+
+packageLinks.forEach((link) => {
+  link.addEventListener("click", () => trackPackageSelection(link));
+});
+
 contactForms.forEach((form) => {
   const submitButton = form.querySelector('button[type="submit"]');
   const status = form.querySelector("[data-form-status]");
+  const packageSelect = form.querySelector("[data-package-select]");
+
+  preselectPackage(form);
+  updatePackageSummary(form);
+
+  packageSelect?.addEventListener("change", () => updatePackageSummary(form));
 
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -124,7 +200,8 @@ contactForms.forEach((form) => {
     const originalButtonText = submitButton.textContent;
     const formData = new FormData(form);
     const payload = Object.fromEntries(formData.entries());
-    payload.page = `${document.title} (${window.location.pathname})`;
+    payload.page = `${document.title} (${window.location.pathname}${window.location.search})`;
+    const packageValue = packageSelect?.value || "";
 
     submitButton.disabled = true;
     submitButton.setAttribute("aria-busy", "true");
@@ -145,6 +222,8 @@ contactForms.forEach((form) => {
       }
 
       form.reset();
+      if (packageSelect) packageSelect.value = packageValue;
+      updatePackageSummary(form);
       status.textContent = result.message || formSuccessMessage;
       status.classList.add("is-success");
     } catch (error) {

@@ -9,6 +9,7 @@ const fieldLimits = {
   website: 300,
   phone: 80,
   monthly_ad_budget: 100,
+  package: 120,
   message: 2_000,
   page: 240,
 };
@@ -79,6 +80,17 @@ module.exports = async function contactHandler(req, res) {
     return sendJson(res, 400, { error: ERROR_MESSAGE });
   }
 
+  const allowedPackages = new Set([
+    "",
+    "Starter - From £300",
+    "Growth - £599",
+    "Scale - £999+",
+  ]);
+
+  if (!allowedPackages.has(lead.package)) {
+    lead.package = "";
+  }
+
   const apiKey = process.env.RESEND_API_KEY;
   const toEmail = process.env.CONTACT_TO_EMAIL;
 
@@ -93,6 +105,7 @@ module.exports = async function contactHandler(req, res) {
     website: "Website",
     phone: "Phone",
     monthly_ad_budget: "Monthly ad budget",
+    package: "Selected package",
     message: "Message",
     page: "Page",
   };

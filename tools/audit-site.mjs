@@ -11,6 +11,13 @@ const pages = htmlFiles.map((file) => analyseHtml(file));
 const internalTargets = new Map();
 for (const page of pages) {
   internalTargets.set(page.path === "index.html" ? "/" : `/${page.path.replaceAll("\\", "/")}`, page);
+  if (page.canonical) {
+    try {
+      internalTargets.set(new URL(page.canonical).pathname, page);
+    } catch {
+      // Ignore invalid canonicals here; they are still reported in page details.
+    }
+  }
 }
 
 const broken = [];
@@ -93,6 +100,7 @@ function analyseHtml(file) {
       return "Invalid";
     }
   });
+  const canonical = attr(text, /<link rel="canonical" href="([^"]*)"/i);
   const pathUrl = file === "index.html" ? `${siteUrl()}/` : `${siteUrl()}/${file.replaceAll("\\", "/")}`;
 
   return {
@@ -100,7 +108,7 @@ function analyseHtml(file) {
     status: "local-file",
     title: attr(text, /<title>(.*?)<\/title>/i),
     description: attr(text, /<meta name="description" content="([^"]*)"/i),
-    canonical: attr(text, /<link rel="canonical" href="([^"]*)"/i),
+    canonical,
     robots: attr(text, /<meta name="robots" content="([^"]*)"/i),
     h1Count: (text.match(/<h1\b/gi) || []).length,
     mainWordCount: visibleMain ? visibleMain.split(/\s+/).length : 0,
@@ -108,7 +116,7 @@ function analyseHtml(file) {
       .map((match) => match[1])
       .filter((href) => href.startsWith("/")),
     structuredDataTypes: jsonLd,
-    inSitemap: sitemapUrls.includes(pathUrl),
+    inSitemap: sitemapUrls.includes(canonical || pathUrl),
   };
 }
 
