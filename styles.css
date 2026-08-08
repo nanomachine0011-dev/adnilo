@@ -4118,8 +4118,10 @@ body {
 }
 
 .header-inner {
-  grid-template-columns: minmax(170px, 1fr) auto minmax(170px, 1fr);
-  width: min(1240px, calc(100% - 56px));
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  width: 100%;
+  max-width: none;
+  padding: 0 clamp(72px, 5.25vw, 80px);
 }
 
 .site-nav {
@@ -4298,7 +4300,8 @@ body {
 
 @media (max-width: 1180px) {
   .header-inner {
-    grid-template-columns: minmax(150px, 1fr) auto minmax(150px, 1fr);
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    padding: 0 32px;
   }
 
   .site-nav {
@@ -4315,6 +4318,7 @@ body {
     grid-template-columns: 1fr auto;
     width: min(100% - 28px, 1120px);
     min-height: 74px;
+    padding: 0;
   }
 
   .site-nav {
