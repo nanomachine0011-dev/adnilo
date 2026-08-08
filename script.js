@@ -64,15 +64,33 @@ menuToggle?.addEventListener("click", () => {
   setNavOpen(!document.body.classList.contains("nav-open"));
 });
 
-serviceMenuToggle?.addEventListener("focus", () => {
+serviceMenuToggle?.addEventListener("click", (event) => {
+  event.stopPropagation();
+
+  if (mobileNavQuery.matches) {
+    const isOpen = serviceDropdown?.classList.contains("dropdown-open");
+    setServiceMenuOpen(!isOpen);
+    return;
+  }
+
   setServiceMenuOpen(true);
+});
+
+serviceMenuToggle?.addEventListener("focus", () => {
+  if (!mobileNavQuery.matches) {
+    setServiceMenuOpen(true);
+  }
 });
 
 serviceDropdown?.addEventListener("mouseenter", () => {
-  setServiceMenuOpen(true);
+  if (!mobileNavQuery.matches) {
+    setServiceMenuOpen(true);
+  }
 });
 
 serviceDropdown?.addEventListener("focusout", () => {
+  if (mobileNavQuery.matches) return;
+
   window.setTimeout(() => {
     if (!serviceDropdown.contains(document.activeElement)) {
       setServiceMenuOpen(false);
@@ -100,17 +118,6 @@ document.addEventListener("keydown", (event) => {
 });
 
 document.addEventListener("click", (event) => {
-  const toggle = event.target.closest("[data-service-menu-toggle]");
-
-  if (toggle) {
-    const dropdown = toggle.closest(".nav-dropdown");
-    const isOpen = dropdown?.classList.contains("dropdown-open");
-
-    dropdown?.classList.toggle("dropdown-open", !isOpen);
-    toggle.setAttribute("aria-expanded", String(!isOpen));
-    return;
-  }
-
   if (serviceDropdown && !serviceDropdown.contains(event.target)) {
     setServiceMenuOpen(false);
   }

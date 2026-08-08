@@ -1,7 +1,7 @@
 import { writeFileSync } from "node:fs";
 
 const siteUrl = "https://www.adnilo.co.uk";
-const today = "2026-07-29";
+const today = "2026-08-08";
 const ogImage = `${siteUrl}/assets/adnilo-og-image.png`;
 const heroImage = "/assets/adnilo-hero-abstract.webp";
 
@@ -775,7 +775,7 @@ function metaHead({ title, description, canonical, type = "website", noindex = f
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/styles.css?v=packages-1">
+    <link rel="stylesheet" href="/styles.css?v=white-home-4">
 ${scripts.map((script) => `    ${script}`).join("\n")}`;
 }
 
@@ -787,11 +787,11 @@ function serviceLinks(prefix = "/") {
 
 function header({ resultsHref = "/#results", contactHref = "/#contact", leadHref = "/packages" } = {}) {
   return `    <header class="site-header" data-header>
-      <a class="logo" href="/" aria-label="Adnilo home"><span>Adnilo</span></a>
-      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-menu-toggle>
-        <span></span><span></span><span></span><span class="sr-only">Menu</span>
-      </button>
-      <div class="desktop-nav-group">
+      <div class="header-inner">
+        <a class="logo" href="/" aria-label="Adnilo home"><span>Adnilo</span></a>
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-menu-toggle>
+          <span></span><span></span><span></span><span class="sr-only">Menu</span>
+        </button>
         <nav class="site-nav" id="site-nav" aria-label="Primary navigation" data-site-nav>
           <div class="nav-dropdown">
             <button class="nav-dropdown-trigger" type="button" aria-expanded="false" data-service-menu-toggle>Services</button>
@@ -908,7 +908,7 @@ ${structuredData.map(jsonLd).map((line) => `    ${line}`).join("\n")}
 ${header(headerOptions)}
 ${main}
 ${footer()}
-    <script src="/script.js?v=packages-1"></script>
+    <script src="/script.js?v=white-home-4"></script>
   </body>
 </html>
 `;
@@ -1378,7 +1378,7 @@ function homePage() {
     publisher: { "@id": `${siteUrl}/#organization` },
   };
 
-  const main = `    <main id="main-content">
+  const main = `    <main id="main-content" class="home-page">
       <section class="hero" aria-labelledby="hero-title">
         ${heroArt()}
         <div class="hero-wash" aria-hidden="true"></div>
