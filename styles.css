@@ -4424,3 +4424,29 @@ body.has-scrolled .site-header { background:rgba(11,11,12,.88); }
 .home-page .card:hover {border-color:rgba(198,244,50,.5)!important}
 .site-header .header-cta {background:#C6F432!important;color:#0B0B0C!important;border-color:#C6F432!important;border-radius:999px!important}
 @media(max-width:700px){.home-page .hero{min-height:670px;padding:160px 0 160px}.home-page .hero h1{font-size:clamp(3.2rem,12vw,5rem)!important}.home-page .hero-subtitle{font-size:1rem!important}.home-page .hero:after{left:0;right:0}}
+
+
+/* Tidewell-inspired navy, cream and coral redesign */
+:root{--purple:#FF6B5B;--hero-purple:#14213D;--dark-purple:#101b33;--pink:#FF6B5B;--white:#F4EDE0;--light:#1d2b48;--text:#F4EDE0;--muted:#c5c3c4;--line:rgba(244,237,224,.16);--shadow:0 22px 60px rgba(0,0,0,.25);--purple-shadow:0 24px 70px rgba(0,0,0,.3)}
+body{background:#14213D!important;color:#F4EDE0!important}
+body.has-scrolled .site-header{background:rgba(20,33,61,.94)!important}
+.site-header,.site-header .logo,.site-nav{color:#F4EDE0!important}
+.site-header .header-cta,.home-page .hero .btn-primary{background:#FF6B5B!important;color:#14213D!important;border-color:#FF6B5B!important;box-shadow:none!important;border-radius:999px!important}
+.site-header .header-cta:hover,.home-page .hero .btn-primary:hover{background:#ff8578!important}
+.home-page .hero{min-height:760px;min-height:min(850px,100svh);padding:180px 0 155px!important;align-items:center!important;background:radial-gradient(ellipse 45% 53% at 53% 53%,rgba(255,107,91,.52) 0%,rgba(255,107,91,.20) 43%,transparent 82%),repeating-linear-gradient(90deg,rgba(244,237,224,.025) 0 1px,transparent 1px 5px),linear-gradient(120deg,#14213D,#1a2846 55%,#14213D)!important}
+.home-page .hero:after{background:radial-gradient(ellipse,rgba(255,107,91,.28),transparent 70%)!important;filter:blur(55px)!important}
+.home-page .hero h1{font-family:Inter,Arial,sans-serif!important;font-weight:500!important;font-size:clamp(3.4rem,7vw,7rem)!important;line-height:1.06!important;letter-spacing:-.065em!important;color:#F4EDE0!important}
+.home-page .hero h1 em{font-family:inherit!important;font-style:normal!important;color:#FF6B5B!important}
+.home-page .hero-content{align-items:flex-start!important;text-align:left!important;max-width:1120px!important}
+.home-page .hero h1{max-width:870px!important}
+.home-page .hero-subtitle{margin:25px 0 25px!important;max-width:530px!important;color:#e1dcd5!important}
+.home-page .trust-strip{background:#17243e!important;border-color:rgba(255,107,91,.25)!important}
+.home-page .section,.home-page .section:nth-of-type(even){background:#14213D!important;color:#F4EDE0!important}
+.home-page .section:nth-of-type(even){background:#192743!important}
+.home-page .card,.home-page .mini-metrics>div{background:linear-gradient(145deg,#253451,#1a2945)!important;border:1px solid rgba(244,237,224,.17)!important;color:#F4EDE0!important}
+.home-page .card:hover{border-color:#FF6B5B!important}
+.home-page h2,.home-page h3{color:#F4EDE0!important}
+.home-page .eyebrow,.home-page .card-number,.home-page .card-link-text{color:#FF6B5B!important}
+.home-page .card p,.home-page .body-copy p{color:#d0ced0!important}
+:focus-visible{outline-color:#FF6B5B!important}
+@media(max-width:700px){.home-page .hero{padding:155px 0 110px!important;min-height:670px}.home-page .hero h1{font-size:clamp(3.1rem,11vw,5rem)!important}}
