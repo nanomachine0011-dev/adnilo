@@ -4402,3 +4402,25 @@ body {
 body { background:radial-gradient(circle at 70% 18%,rgba(198,244,50,.09),transparent 35%),#0B0B0C; color:#FFFFFF; }
 body.has-scrolled .site-header { background:rgba(11,11,12,.88); }
 :focus-visible { outline-color:#C6F432; }
+
+
+/* Northline-inspired Adnilo homepage: visual presentation only */
+.home-page .hero { min-height: 760px; min-height: min(850px, 100svh); display:flex; align-items:flex-start; justify-content:center; padding:150px 0 220px; background:radial-gradient(ellipse 35% 24% at 50% 80%,rgba(198,244,50,.33),transparent 90%),linear-gradient(180deg,#0B0B0C 0%,#0B0B0C 65%,#161e0d 100%); overflow:hidden; }
+.home-page .hero-art,.home-page .hero-wash,.home-page .hero-motion {display:none!important}
+.home-page .hero-content {position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;text-align:center;max-width:1050px;margin:0 auto}
+.home-page .hero h1 {font-family:Georgia,"Times New Roman",serif!important;font-size:clamp(3.5rem,7.4vw,7.6rem)!important;font-weight:400!important;line-height:1.02!important;letter-spacing:-.065em!important;max-width:1000px!important;text-wrap:balance}
+.home-page .hero h1 em {color:#C6F432;font-weight:400;font-style:italic}
+.home-page .hero-subtitle {max-width:530px!important;font-size:clamp(.95rem,1.25vw,1.12rem)!important;color:#aeb5a5!important;margin:26px auto 24px!important}
+.home-page .hero .btn-primary {background:#C6F432!important;color:#0B0B0C!important;border:1px solid #C6F432!important;border-radius:999px!important;box-shadow:0 0 36px rgba(198,244,50,.22)!important;padding:15px 30px!important;font-weight:700!important}
+.home-page .hero .btn-primary:hover {background:#d9ff70!important;transform:translateY(-2px)}
+.home-page .hero:after {content:"";pointer-events:none;position:absolute;left:16%;right:16%;bottom:-140px;height:330px;background:radial-gradient(ellipse,rgba(198,244,50,.34),transparent 68%);filter:blur(45px)}
+.home-page .trust-strip {background:#10120e!important;border-top:1px solid rgba(198,244,50,.15)!important}
+.home-page .section {background:#0B0B0C!important;color:#fff!important}
+.home-page .section:nth-of-type(even) {background:#111410!important}
+.home-page .card,.home-page .mini-metrics>div {background:linear-gradient(155deg,#20271a,#121510)!important;border:1px solid rgba(198,244,50,.19)!important;box-shadow:0 16px 40px rgba(0,0,0,.18)!important;color:#fff!important}
+.home-page .card p,.home-page .body-copy p {color:#b8c0b2!important}
+.home-page .eyebrow,.home-page .card-number,.home-page .card-link-text {color:#C6F432!important}
+.home-page h2,.home-page h3 {color:#fff!important}
+.home-page .card:hover {border-color:rgba(198,244,50,.5)!important}
+.site-header .header-cta {background:#C6F432!important;color:#0B0B0C!important;border-color:#C6F432!important;border-radius:999px!important}
+@media(max-width:700px){.home-page .hero{min-height:670px;padding:160px 0 160px}.home-page .hero h1{font-size:clamp(3.2rem,12vw,5rem)!important}.home-page .hero-subtitle{font-size:1rem!important}.home-page .hero:after{left:0;right:0}}
