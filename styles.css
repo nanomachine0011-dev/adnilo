@@ -4450,3 +4450,32 @@ body.has-scrolled .site-header{background:rgba(20,33,61,.94)!important}
 .home-page .card p,.home-page .body-copy p{color:#d0ced0!important}
 :focus-visible{outline-color:#FF6B5B!important}
 @media(max-width:700px){.home-page .hero{padding:155px 0 110px!important;min-height:670px}.home-page .hero h1{font-size:clamp(3.1rem,11vw,5rem)!important}}
+
+
+/* Adnilo premium agency refinement — November 2026 */
+:root { --brand-navy:#111d33; --brand-ink:#f8f5ef; --brand-coral:#ff7968; }
+body { animation:none!important; background:#111d33!important; }
+.site-header { top:0!important; min-height:76px; padding-top:12px!important; padding-bottom:12px!important; background:rgba(17,29,51,.94)!important; backdrop-filter:blur(18px)!important; border-bottom:1px solid rgba(248,245,239,.12)!important; }
+body.has-scrolled .site-header { top:0!important; background:rgba(17,29,51,.97)!important; box-shadow:0 10px 32px rgba(0,0,0,.14)!important; }
+.logo { font-family:Inter,Arial,sans-serif!important; font-weight:800!important; letter-spacing:-.06em!important; }
+.site-nav { font-weight:600!important; gap:clamp(14px,2.4vw,32px)!important; }
+.service-menu { background:#192a46!important; border:1px solid rgba(248,245,239,.16)!important; box-shadow:0 22px 60px rgba(0,0,0,.25)!important; }
+.home-page .hero { min-height:min(820px,100svh)!important; padding:160px 0 120px!important; background:radial-gradient(ellipse at 80% 48%,rgba(255,121,104,.13),transparent 48%),linear-gradient(135deg,#111d33,#1a2d4a)!important; animation:none!important; }
+.home-page .hero-art,.home-page .hero-motion,.home-page .hero-wash { display:none!important; }
+.home-page .hero::before,.home-page .hero::after { animation:none!important; opacity:.35!important; }
+.home-page .hero h1 { font-size:clamp(3.1rem,6.8vw,6.6rem)!important; font-weight:750!important; letter-spacing:-.065em!important; line-height:1.04!important; max-width:930px!important; }
+.home-page .hero h1 em { color:#ff7968!important; }
+.home-page .hero-subtitle { font-size:clamp(1.05rem,1.6vw,1.22rem)!important; line-height:1.7!important; max-width:600px!important; color:#e0e3e9!important; }
+.home-page .hero .btn-primary,.site-header .header-cta { background:#ff7968!important; border-color:#ff7968!important; color:#111d33!important; font-weight:750!important; box-shadow:none!important; }
+.home-page .hero .btn-primary:hover,.site-header .header-cta:hover { background:#ff9a8c!important; transform:translateY(-2px)!important; }
+.home-page .section { padding-top:clamp(72px,8vw,120px)!important; padding-bottom:clamp(72px,8vw,120px)!important; }
+.home-page .section h2 { letter-spacing:-.045em!important; line-height:1.13!important; }
+.home-page .card,.home-page .mini-metrics>div { border-radius:16px!important; background:#21324d!important; border:1px solid rgba(248,245,239,.14)!important; box-shadow:none!important; transition:border-color .2s ease,transform .2s ease!important; }
+.home-page .card:hover { transform:translateY(-3px)!important; border-color:rgba(255,121,104,.65)!important; }
+.home-page .eyebrow,.home-page .card-number,.home-page .card-link-text { color:#ff9a8c!important; }
+.home-page .trust-strip { background:#182842!important; }
+.home-page .contact-form input,.home-page .contact-form select,.home-page .contact-form textarea { border-radius:10px!important; }
+.home-page .contact-form :focus-visible { outline:2px solid #ff9a8c!important; outline-offset:2px!important; }
+.btn,.header-cta { transition:background .2s ease,transform .2s ease!important; }
+@media (prefers-reduced-motion:reduce) { *,*::before,*::after { animation-duration:.01ms!important; animation-iteration-count:1!important; scroll-behavior:auto!important; transition-duration:.01ms!important; } }
+@media (max-width:700px) { .site-header { min-height:68px!important; } .home-page .hero { min-height:650px!important; padding:145px 0 92px!important; } .home-page .hero h1 { font-size:clamp(2.8rem,11vw,4.7rem)!important; } .home-page .section { padding-top:68px!important; padding-bottom:68px!important; } }
