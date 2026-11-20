@@ -4499,3 +4499,54 @@ body.has-scrolled .site-header { top:0!important; background:rgba(17,29,51,.97)!
 .faq-items summary { cursor:pointer; font-weight:700; color:#f8f5ef; padding-right:25px; line-height:1.5; }
 .faq-items details p { color:#cdd6e1; line-height:1.7; max-width:640px; }
 @media(max-width:800px) { .industry-grid,.difference-grid { grid-template-columns:1fr; gap:14px; } .faq-layout { grid-template-columns:1fr; } .industry-grid article,.difference-grid>div { padding:25px; } }
+
+/* Adnilo light-first design system — intentional final overrides */
+:root { --brand-bg:#fff; --brand-soft:#f6f7f9; --brand-ink:#172238; --brand-muted:#526075; --brand-accent:#f36d5f; }
+html { color-scheme:light; }
+body,body.home-page { background:#fff!important; color:#172238!important; animation:none!important; }
+.site-header,body.has-scrolled .site-header { background:rgba(255,255,255,.96)!important; color:#172238!important; border-bottom:1px solid #e6e9ef!important; box-shadow:0 6px 20px rgba(23,34,56,.035)!important; }
+.site-header .logo,.site-header .site-nav,.site-header .site-nav a,.site-header .nav-dropdown-trigger { color:#172238!important; }
+.site-header .header-cta { background:#f36d5f!important; border-color:#f36d5f!important; color:#172238!important; }
+.site-header .menu-toggle { color:#172238!important; }
+.site-header .service-menu { background:#fff!important; border:1px solid #e6e9ef!important; box-shadow:0 18px 50px rgba(23,34,56,.14)!important; }
+.site-header .service-menu a { color:#172238!important; }
+.site-header .service-menu a:hover { background:#f6f7f9!important; color:#172238!important; }
+.home-page .hero { background:radial-gradient(ellipse at 85% 30%,rgba(243,109,95,.08),transparent 44%),linear-gradient(#fff,#f8f9fb)!important; color:#172238!important; }
+.home-page .hero::before,.home-page .hero::after { display:none!important; }
+.home-page .hero h1 { color:#172238!important; }
+.home-page .hero h1 em { color:#d95749!important; }
+.home-page .hero-subtitle { color:#526075!important; }
+.home-page .hero .btn-outline { color:#172238!important; border:1px solid #cbd2dc!important; background:#fff!important; }
+.home-page .hero .btn-outline:hover { background:#f6f7f9!important; }
+.hero-footnote { color:#667286!important; }
+.home-page .trust-strip { background:#f6f7f9!important; color:#344158!important; border-color:#e6e9ef!important; }
+.home-page .section,.home-page .section:nth-of-type(even) { background:#fff!important; color:#172238!important; }
+.home-page .section:nth-of-type(even) { background:#f6f7f9!important; }
+.home-page .section h2,.home-page .section h3,.home-page .section-heading h2,.home-page .body-copy,.home-page .section-copy { color:#172238!important; }
+.home-page .body-copy p,.home-page .section-copy p,.home-page .section-heading p,.home-page .card p,.home-page .mini-metrics span { color:#526075!important; }
+.home-page .eyebrow,.home-page .card-number,.home-page .card-link-text { color:#c94f43!important; }
+.home-page .card,.home-page .mini-metrics>div,.industry-grid article,.difference-grid>div { background:#fff!important; color:#172238!important; border:1px solid #e4e8ef!important; box-shadow:0 12px 30px rgba(23,34,56,.045)!important; }
+.home-page .card:hover { border-color:#f36d5f!important; }
+.industry-grid h3,.difference-grid h3 { color:#172238!important; }
+.industry-grid p,.difference-grid p,.industry-intro { color:#526075!important; }
+.industry-grid article>span,.difference-grid strong { color:#c94f43!important; }
+.home-page .result-card { background:#fff!important; color:#172238!important; border:1px solid #e4e8ef!important; }
+.home-page .result-card span,.home-page .result-card p { color:#172238!important; }
+.home-page .results { background:#172238!important; color:#fff!important; }
+.home-page .results h2,.home-page .results .section-heading h2 { color:#fff!important; }
+.home-page .results .eyebrow { color:#ff9d92!important; }
+.home-page .founder-panel { background:#f6f7f9!important; color:#172238!important; }
+.home-page .founder-panel h2,.home-page .founder-panel p { color:#172238!important; }
+.faq-items { border-color:#e0e5ed!important; }
+.faq-items details { border-color:#e0e5ed!important; }
+.faq-items summary { color:#172238!important; }
+.faq-items details p,.faq-layout p { color:#526075!important; }
+.home-page .contact-form,.home-page .contact-form-stack { color:#172238!important; }
+.home-page .contact-form input,.home-page .contact-form select,.home-page .contact-form textarea { background:#fff!important; color:#172238!important; border:1px solid #cbd2dc!important; }
+.home-page .contact-form label,.home-page .contact-form label span { color:#172238!important; }
+.home-page .contact-form input::placeholder,.home-page .contact-form textarea::placeholder { color:#788396!important; }
+.home-page .contact-form .btn-primary { background:#f36d5f!important; color:#172238!important; }
+.home-page .site-footer,.site-footer { background:#172238!important; color:#f8f9fb!important; }
+.home-page .site-footer a,.site-footer a { color:#f8f9fb!important; }
+:focus-visible { outline:3px solid #d95749!important; outline-offset:3px!important; }
+@media(max-width:980px){.site-nav { background:#fff!important; color:#172238!important; }.site-nav a,.site-nav .nav-dropdown-trigger { color:#172238!important; }}
