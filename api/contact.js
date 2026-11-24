@@ -82,9 +82,9 @@ module.exports = async function contactHandler(req, res) {
 
   const allowedPackages = new Set([
     "",
-    "Starter - From £300",
-    "Growth - £599",
-    "Scale - £999+",
+    "Starter - From £499",
+    "Growth - £999",
+    "Scale - £2,000+",
   ]);
 
   if (!allowedPackages.has(lead.package)) {
