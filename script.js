@@ -4,26 +4,12 @@ const siteHeader = document.querySelector(".site-header");
 const navLinks = document.querySelectorAll("[data-site-nav] a");
 const serviceMenuToggle = document.querySelector("[data-service-menu-toggle]");
 const serviceDropdown = document.querySelector(".nav-dropdown");
-const revealItems = document.querySelectorAll(".reveal");
 const contactForms = document.querySelectorAll("[data-contact-form]");
 const packageLinks = document.querySelectorAll("[data-package-select-link]");
-const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-const mobileNavQuery = window.matchMedia("(max-width: 980px)");
+const mobileNavQuery = window.matchMedia("(max-width: 1024px)");
 const formSuccessMessage = "Thanks — your enquiry has been sent.";
 const formErrorMessage = "We could not send your enquiry. Please try again.";
-const packageChoices = {
-  starter: { value: "Starter - From £499", name: "Starter", price: "From £499" },
-  growth: { value: "Growth - £999", name: "Growth", price: "£999" },
-  scale: { value: "Scale - £2,000+", name: "Scale", price: "£2,000+" },
-};
 const selectedPackageSlug = new URLSearchParams(window.location.search).get("package")?.toLowerCase() || "";
-
-document.documentElement.classList.add("motion-ready");
-document.documentElement.dataset.motion = reducedMotionQuery.matches ? "reduced" : "full";
-
-reducedMotionQuery.addEventListener?.("change", (event) => {
-  document.documentElement.dataset.motion = event.matches ? "reduced" : "full";
-});
 
 function updateScrollState() {
   document.body.classList.toggle("has-scrolled", window.scrollY > 18);
@@ -42,7 +28,7 @@ function syncNavInteraction() {
   }
 }
 
-function setNavOpen(isOpen) {
+function setNavOpen(isOpen, restoreFocus = false) {
   document.body.classList.toggle("nav-open", isOpen);
   menuToggle?.setAttribute("aria-expanded", String(isOpen));
   syncNavInteraction();
@@ -51,7 +37,7 @@ function setNavOpen(isOpen) {
     window.setTimeout(() => siteNav?.querySelector("button, a")?.focus({ preventScroll: true }), 0);
   } else {
     setServiceMenuOpen(false);
-    menuToggle?.focus({ preventScroll: true });
+    if (restoreFocus && mobileNavQuery.matches) menuToggle?.focus({ preventScroll: true });
   }
 }
 
@@ -67,25 +53,7 @@ menuToggle?.addEventListener("click", () => {
 serviceMenuToggle?.addEventListener("click", (event) => {
   event.stopPropagation();
 
-  if (mobileNavQuery.matches) {
-    const isOpen = serviceDropdown?.classList.contains("dropdown-open");
-    setServiceMenuOpen(!isOpen);
-    return;
-  }
-
-  setServiceMenuOpen(true);
-});
-
-serviceMenuToggle?.addEventListener("focus", () => {
-  if (!mobileNavQuery.matches) {
-    setServiceMenuOpen(true);
-  }
-});
-
-serviceDropdown?.addEventListener("mouseenter", () => {
-  if (!mobileNavQuery.matches) {
-    setServiceMenuOpen(true);
-  }
+  setServiceMenuOpen(!serviceDropdown?.classList.contains("dropdown-open"));
 });
 
 serviceDropdown?.addEventListener("focusout", () => {
@@ -111,9 +79,13 @@ navLinks.forEach((link) => {
 });
 
 document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape") {
-    setNavOpen(false);
+  if (event.key !== "Escape") return;
+
+  if (serviceDropdown?.classList.contains("dropdown-open")) {
     setServiceMenuOpen(false);
+    serviceMenuToggle?.focus();
+  } else if (document.body.classList.contains("nav-open")) {
+    setNavOpen(false, true);
   }
 });
 
@@ -157,12 +129,14 @@ function updatePackageSummary(form) {
 
   summary.hidden = false;
   nameTarget.textContent = `${selected.name} package`;
-  noteTarget.textContent = `${selected.price} selected. You can still change this before sending your enquiry.`;
+  noteTarget.textContent = `${selected.price}/month selected. You can still change this before sending your enquiry.`;
 }
 
 function preselectPackage(form) {
   const select = form.querySelector("[data-package-select]");
-  const selectedPackage = packageChoices[selectedPackageSlug];
+  const selectedPackage = Array.from(select?.options ?? []).find(
+    option => option.dataset.packageSlug === selectedPackageSlug
+  );
   if (!select || !selectedPackage) return;
 
   select.value = selectedPackage.value;
@@ -244,20 +218,3 @@ contactForms.forEach((form) => {
   });
 });
 
-if ("IntersectionObserver" in window) {
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { rootMargin: "0px 0px -12% 0px", threshold: 0.12 }
-  );
-
-  revealItems.forEach((item) => observer.observe(item));
-} else {
-  revealItems.forEach((item) => item.classList.add("is-visible"));
-}

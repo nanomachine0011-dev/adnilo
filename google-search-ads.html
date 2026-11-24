@@ -18,18 +18,18 @@
     <meta name="twitter:title" content="Google Search Ads for Local Businesses | Adnilo">
     <meta name="twitter:description" content="Google Search Ads campaigns for local businesses that want to appear when customers are actively searching and ready to enquire.">
     <meta name="twitter:image" content="https://www.adnilo.co.uk/assets/adnilo-og-image.png">
-    <meta name="theme-color" content="#6D28D9">
+    <meta name="theme-color" content="#172238">
     <title>Google Search Ads for Local Businesses | Adnilo</title>
     <link rel="icon" href="/favicon.ico" sizes="any">
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
     <link rel="manifest" href="/site.webmanifest">
-    <link rel="preload" as="image" href="/assets/adnilo-hero-abstract.webp" type="image/webp" fetchpriority="high">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/styles.css?v=header-fix-1">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css?v=adnilo-pricing-1">
 
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.adnilo.co.uk/"},{"@type":"ListItem","position":2,"name":"Google Search Ads","item":"https://www.adnilo.co.uk/google-search-ads.html"}]}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"Service","name":"Google Search Ads","serviceType":"Google Search Ads","provider":{"@type":"Organization","name":"Adnilo","url":"https://www.adnilo.co.uk"},"url":"https://www.adnilo.co.uk/google-search-ads.html","description":"Google Search Ads campaigns for local businesses that want to appear when customers are actively searching and ready to enquire.","audience":{"@type":"BusinessAudience","audienceType":"Local service businesses"}}</script>
@@ -44,23 +44,22 @@
         </button>
         <nav class="site-nav" id="site-nav" aria-label="Primary navigation" data-site-nav>
           <div class="nav-dropdown">
-            <button class="nav-dropdown-trigger" type="button" aria-expanded="false" data-service-menu-toggle>Services</button>
-            <div class="service-menu" aria-label="Services"><a href="/google-ads.html">Google Ads Management</a><a href="/google-search-ads.html">Google Search Ads</a><a href="/google-ads-audit.html">Google Ads Audit</a><a href="/fix-google-ads.html">Campaign Rebuild</a><a href="/landing-pages.html">Landing Pages</a><a href="/conversion-tracking.html">Conversion Tracking</a><a href="/meta-ads.html">Meta Ads Management</a><a href="/retargeting-ads.html">Retargeting Ads</a><a href="/local-lead-generation.html">Local Lead Generation</a></div>
+            <button class="nav-dropdown-trigger" type="button" aria-expanded="false" aria-controls="service-menu" data-service-menu-toggle>Services</button>
+            <div class="service-menu" id="service-menu"><a href="/#services">All services</a><a href="/google-ads.html">Google Ads Management</a><a href="/google-search-ads.html">Google Search Ads</a><a href="/google-ads-audit.html">Google Ads Audit</a><a href="/fix-google-ads.html">Campaign Rebuild</a><a href="/landing-pages.html">Landing Pages</a><a href="/conversion-tracking.html">Conversion Tracking</a><a href="/meta-ads.html">Meta Ads Management</a><a href="/retargeting-ads.html">Retargeting Ads</a><a href="/local-lead-generation.html">Local Lead Generation</a></div>
           </div>
           <a href="/packages">Packages</a>
-          <a href="#outcomes">Results</a>
-          <a href="#contact">Contact</a>
-          <a class="mobile-nav-cta" href="/packages">Get Leads</a>
+          <a href="/about.html">About</a>
+          <a href="/#industries">Industries</a>
+          <a href="/case-studies.html">Our approach</a>
+          <a href="/#contact">Contact</a>
+          <a class="btn btn-primary mobile-nav-cta" href="/#contact">Request a Free Audit</a>
         </nav>
-        <a class="header-cta" href="/packages">Get Leads</a>
+        <a class="btn btn-primary header-cta" href="/#contact">Request a Free Audit</a>
       </div>
     </header>
     <main id="main-content" class="service-page variant-search">
-      <nav class="breadcrumb container" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><span>Google Search Ads</span></nav>
+      <nav class="breadcrumb container" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><span aria-current="page">Google Search Ads</span></nav>
       <section class="hero service-hero" aria-labelledby="service-title">
-        <img class="hero-art" src="/assets/adnilo-hero-abstract.webp" width="1717" height="916" alt="" aria-hidden="true" decoding="async" fetchpriority="high" style="object-position: 58% center;">
-        <div class="hero-wash" aria-hidden="true"></div>
-        <div class="service-floats" aria-hidden="true"><span class="service-float service-float-one"></span><span class="service-float service-float-two"></span><span class="service-float service-float-three"></span></div>
         <div class="container service-hero-layout">
           <div class="service-hero-copy reveal">
             <p class="eyebrow">High-intent search campaigns</p>
@@ -70,8 +69,8 @@
           </div>
           <div class="service-visual visual-pipeline reveal" aria-label="Search to enquiry journey">
             <div class="pipeline-card glass-panel">
-              <div class="visual-topline"><span>Search journey</span><strong>Search to enquiry journey</strong></div>
-              <div class="pipeline-flow"><span>Customer searches</span><span>Advert appears</span><span>Landing page matches</span><span>Call or form enquiry</span></div>
+              <h2 class="visual-heading">Search to enquiry journey</h2>
+              <ol class="search-journey"><li><span aria-hidden="true">01</span>Customer searches</li><li><span aria-hidden="true">02</span>Advert appears</li><li><span aria-hidden="true">03</span>Landing page matches</li><li><span aria-hidden="true">04</span>Call or form enquiry</li></ol>
             </div>
           </div>
         </div>
@@ -246,9 +245,9 @@
               <span>Package</span>
               <select name="package" data-package-select>
                 <option value="">Not sure yet</option>
-                <option value="Starter - From £300" data-package-slug="starter" data-package-name="Starter" data-package-price="From £300">Starter - From £300</option>
-                <option value="Growth - £599" data-package-slug="growth" data-package-name="Growth" data-package-price="£599">Growth - £599</option>
-                <option value="Scale - £999+" data-package-slug="scale" data-package-name="Scale" data-package-price="£999+">Scale - £999+</option>
+                <option value="Starter - From £499" data-package-slug="starter" data-package-name="Starter" data-package-price="From £499">Starter - From £499</option>
+                <option value="Growth - £999" data-package-slug="growth" data-package-name="Growth" data-package-price="£999">Growth - £999</option>
+                <option value="Scale - £2,000+" data-package-slug="scale" data-package-name="Scale" data-package-price="£2,000+">Scale - £2,000+</option>
               </select>
             </label>
             <label class="full">
@@ -276,7 +275,11 @@
             <a href="/conversion-tracking.html">Conversion Tracking</a>
             <a href="/local-lead-generation.html">Local Lead Generation</a>
           </nav>
-          <nav aria-label="Footer legal">
+          <nav aria-label="About and legal">
+            <a href="/about.html">About</a>
+            <a href="/case-studies.html">Our approach</a>
+            <a href="/#results">Outcomes</a>
+            <a href="/#faq">FAQs</a>
             <a href="/packages">Packages</a>
             <a href="/privacy.html">Privacy Policy</a>
             <a href="/terms.html">Terms</a>
@@ -285,6 +288,6 @@
         </div>
       </div>
     </footer>
-    <script src="/script.js?v=header-fix-1"></script>
+    <script src="/script.js?v=adnilo-pricing-1"></script>
   </body>
 </html>

@@ -3,7 +3,6 @@ import { writeFileSync } from "node:fs";
 const siteUrl = "https://www.adnilo.co.uk";
 const today = "2026-08-08";
 const ogImage = `${siteUrl}/assets/adnilo-og-image.png`;
-const heroImage = "/assets/adnilo-hero-abstract.webp";
 
 const services = [
   {
@@ -162,7 +161,7 @@ const services = [
     label: "Account health check",
     h1: "Find out where your Google Ads budget is being wasted.",
     intro: "If the account looks busy but the leads do not feel right, an audit gives you a clearer view of what is happening before you spend more money.",
-    cta: "Request Free Audit",
+    cta: "Request a Free Audit",
     trust: "For businesses already running Google Ads and unsure whether the account is set up properly.",
     visualType: "audit",
     visualTitle: "Audit report snapshot",
@@ -667,7 +666,7 @@ const packages = [
   {
     slug: "starter",
     name: "Starter",
-    price: "From £300",
+    price: "From £499",
     suitableFor: "Smaller local businesses starting with Google Ads or needing professional help with one campaign.",
     cta: "Choose Starter",
     popular: false,
@@ -686,7 +685,7 @@ const packages = [
   {
     slug: "growth",
     name: "Growth",
-    price: "£599",
+    price: "£999",
     suitableFor: "Local service businesses wanting ongoing lead generation and more complete campaign management.",
     cta: "Choose Growth",
     popular: true,
@@ -707,7 +706,7 @@ const packages = [
   {
     slug: "scale",
     name: "Scale",
-    price: "£999+",
+    price: "£2,000+",
     suitableFor: "Businesses with larger budgets, multiple services, multiple locations or more advanced advertising requirements.",
     cta: "Discuss Scale Package",
     popular: false,
@@ -764,18 +763,18 @@ function metaHead({ title, description, canonical, type = "website", noindex = f
     <meta name="twitter:title" content="${escapeHtml(title)}">
     <meta name="twitter:description" content="${escapeHtml(description)}">
     <meta name="twitter:image" content="${ogImage}">
-    <meta name="theme-color" content="#6D28D9">
+    <meta name="theme-color" content="#172238">
     <title>${escapeHtml(title)}</title>
     <link rel="icon" href="/favicon.ico" sizes="any">
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
     <link rel="manifest" href="/site.webmanifest">
-    <link rel="preload" as="image" href="${heroImage}" type="image/webp" fetchpriority="high">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/styles.css?v=header-fix-1">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css?v=adnilo-pricing-1">
 ${scripts.map((script) => `    ${script}`).join("\n")}`;
 }
 
@@ -785,7 +784,7 @@ function serviceLinks(prefix = "/") {
     .join("");
 }
 
-function header({ resultsHref = "/#results", contactHref = "/#contact", leadHref = "/packages" } = {}) {
+function header() {
   return `    <header class="site-header" data-header>
       <div class="header-inner">
         <a class="logo" href="/" aria-label="Adnilo home"><span>Adnilo</span></a>
@@ -794,15 +793,17 @@ function header({ resultsHref = "/#results", contactHref = "/#contact", leadHref
         </button>
         <nav class="site-nav" id="site-nav" aria-label="Primary navigation" data-site-nav>
           <div class="nav-dropdown">
-            <button class="nav-dropdown-trigger" type="button" aria-expanded="false" data-service-menu-toggle>Services</button>
-            <div class="service-menu" aria-label="Services">${serviceLinks("/")}</div>
+            <button class="nav-dropdown-trigger" type="button" aria-expanded="false" aria-controls="service-menu" data-service-menu-toggle>Services</button>
+            <div class="service-menu" id="service-menu"><a href="/#services">All services</a>${serviceLinks("/")}</div>
           </div>
           <a href="/packages">Packages</a>
-          <a href="${resultsHref}">Results</a>
-          <a href="${contactHref}">Contact</a>
-          <a class="mobile-nav-cta" href="${leadHref}">Get Leads</a>
+          <a href="/about.html">About</a>
+          <a href="/#industries">Industries</a>
+          <a href="/case-studies.html">Our approach</a>
+          <a href="/#contact">Contact</a>
+          <a class="btn btn-primary mobile-nav-cta" href="/#contact">Request a Free Audit</a>
         </nav>
-        <a class="header-cta" href="${leadHref}">Get Leads</a>
+        <a class="btn btn-primary header-cta" href="/#contact">Request a Free Audit</a>
       </div>
     </header>`;
 }
@@ -822,7 +823,11 @@ function footer() {
             <a href="/conversion-tracking.html">Conversion Tracking</a>
             <a href="/local-lead-generation.html">Local Lead Generation</a>
           </nav>
-          <nav aria-label="Footer legal">
+          <nav aria-label="About and legal">
+            <a href="/about.html">About</a>
+            <a href="/case-studies.html">Our approach</a>
+            <a href="/#results">Outcomes</a>
+            <a href="/#faq">FAQs</a>
             <a href="/packages">Packages</a>
             <a href="/privacy.html">Privacy Policy</a>
             <a href="/terms.html">Terms</a>
@@ -833,7 +838,7 @@ function footer() {
     </footer>`;
 }
 
-function contactForm(buttonText = "Request Free Audit") {
+function contactForm(buttonText = "Request a Free Audit") {
   const packageOptions = packages
     .map((item) => `<option value="${escapeHtml(`${item.name} - ${item.price}`)}" data-package-slug="${item.slug}" data-package-name="${escapeHtml(item.name)}" data-package-price="${escapeHtml(item.price)}">${escapeHtml(item.name)} - ${escapeHtml(item.price)}</option>`)
     .join("\n                ");
@@ -892,11 +897,7 @@ function contactForm(buttonText = "Request Free Audit") {
           </div>`;
 }
 
-function heroArt(extra = "") {
-  return `<img class="hero-art" src="${heroImage}" width="1717" height="916" alt="" aria-hidden="true" decoding="async" fetchpriority="high"${extra}>`;
-}
-
-function pageShell({ title, description, canonical, bodyClass = "", bodyId = "top", headerOptions, main, structuredData = [], noindex = false }) {
+function pageShell({ title, description, canonical, bodyClass = "", bodyId = "top", main, structuredData = [], noindex = false }) {
   return `<!doctype html>
 <html lang="en-GB">
   <head>
@@ -905,10 +906,10 @@ ${structuredData.map(jsonLd).map((line) => `    ${line}`).join("\n")}
   </head>
   <body${bodyId ? ` id="${bodyId}"` : ""}${bodyClass ? ` class="${bodyClass}"` : ""}>
     <a class="skip-link" href="#main-content">Skip to content</a>
-${header(headerOptions)}
+${header()}
 ${main}
 ${footer()}
-    <script src="/script.js?v=header-fix-1"></script>
+    <script src="/script.js?v=adnilo-pricing-1"></script>
   </body>
 </html>
 `;
@@ -994,8 +995,8 @@ function visual(service) {
   if (service.visualType === "search") {
     return `<div class="service-visual visual-pipeline reveal" aria-label="${escapeHtml(service.visualTitle)}">
             <div class="pipeline-card glass-panel">
-              <div class="visual-topline"><span>Search journey</span><strong>${escapeHtml(service.visualTitle)}</strong></div>
-              <div class="pipeline-flow">${service.visualItems.map((item) => `<span>${escapeHtml(item)}</span>`).join("")}</div>
+              <h2 class="visual-heading">${escapeHtml(service.visualTitle)}</h2>
+              <ol class="search-journey">${service.visualItems.map((item, index) => `<li><span aria-hidden="true">${String(index + 1).padStart(2, "0")}</span>${escapeHtml(item)}</li>`).join("")}</ol>
             </div>
           </div>`;
   }
@@ -1026,7 +1027,7 @@ function visual(service) {
               <div class="browser-top"><span></span><span></span><span></span></div>
               <div class="browser-hero"><strong>${escapeHtml(service.visualTitle)}</strong><p>Clear offer, proof, form and phone route.</p></div>
               <div class="browser-grid">${service.visualItems.map((item) => `<span>${escapeHtml(item)}</span>`).join("")}</div>
-              <div class="browser-form"><span></span><span></span><button type="button">Enquire</button></div>
+              <div class="browser-form"><span></span><span></span><span class="visual-cta" aria-hidden="true">Enquire</span></div>
             </div>
           </div>`;
   }
@@ -1044,7 +1045,7 @@ function visual(service) {
   if (service.visualType === "meta") {
     return `<div class="service-visual visual-meta reveal" aria-label="${escapeHtml(service.visualTitle)}">
             <div class="ad-stack">
-              ${service.visualCards.map(([platform, title, text, cta], index) => `<article class="meta-card glass-panel card-${index + 1}"><span>${escapeHtml(platform)}</span><strong>${escapeHtml(title)}</strong><p>${escapeHtml(text)}</p><button type="button">${escapeHtml(cta)}</button></article>`).join("")}
+              ${service.visualCards.map(([platform, title, text, cta], index) => `<article class="meta-card glass-panel card-${index + 1}"><span>${escapeHtml(platform)}</span><strong>${escapeHtml(title)}</strong><p>${escapeHtml(text)}</p><span class="visual-cta">${escapeHtml(cta)}</span></article>`).join("")}
             </div>
           </div>`;
   }
@@ -1116,11 +1117,8 @@ function servicePage(service) {
   };
 
   const main = `    <main id="main-content" class="service-page ${service.variant}">
-      <nav class="breadcrumb container" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><span>${escapeHtml(service.name)}</span></nav>
+      <nav class="breadcrumb container" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><span aria-current="page">${escapeHtml(service.name)}</span></nav>
       <section class="hero service-hero" aria-labelledby="service-title">
-        ${heroArt(` style="object-position: 58% center;"`)}
-        <div class="hero-wash" aria-hidden="true"></div>
-        <div class="service-floats" aria-hidden="true"><span class="service-float service-float-one"></span><span class="service-float service-float-two"></span><span class="service-float service-float-three"></span></div>
         <div class="container service-hero-layout">
           <div class="service-hero-copy reveal">
             <p class="eyebrow">${escapeHtml(service.label)}</p>
@@ -1161,7 +1159,6 @@ ${contactForm(service.cta)}
     title: service.title,
     description: service.description,
     canonical,
-    headerOptions: { resultsHref: "#outcomes", contactHref: "#contact" },
     main,
     structuredData: [breadcrumb, serviceSchema],
   });
@@ -1172,7 +1169,7 @@ function packageCard(item) {
             ${item.popular ? `<span class="popular-badge">Most Popular</span>` : ""}
             <div class="package-card-top">
               <p class="eyebrow dark">${escapeHtml(item.name)}</p>
-              <strong>${escapeHtml(item.price)}</strong>
+              <strong>${escapeHtml(item.price)}<small>/month</small></strong>
               <p><span>Suitable for:</span> ${escapeHtml(item.suitableFor)}</p>
             </div>
             <ul class="package-list">
@@ -1192,7 +1189,7 @@ function comparisonCell(value) {
 
 function packagePage() {
   const title = "Google Ads Packages & Management Pricing | Adnilo";
-  const description = "Compare Adnilo's Google Ads packages for local service businesses, starting from £300. Choose support for campaign setup, optimisation, tracking and growth.";
+  const description = "Compare Adnilo's Google Ads packages for local service businesses, starting from £499. Choose support for campaign setup, optimisation, tracking and growth.";
   const canonical = `${siteUrl}/packages`;
   const faqs = [
     ["Which package is right for my business?", "Starter is usually best for one focused campaign or an initial improvement project. Growth suits local service businesses that want ongoing optimisation and clearer lead tracking. Scale is for larger budgets, multiple services, multiple locations or more advanced advertising requirements."],
@@ -1260,47 +1257,24 @@ function packagePage() {
   };
 
   const main = `    <main id="main-content" class="packages-page">
-      <nav class="breadcrumb container" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><span>Packages</span></nav>
-      <section class="hero service-hero packages-hero" aria-labelledby="packages-title">
-        ${heroArt(` style="object-position: 56% center;"`)}
-        <div class="hero-wash" aria-hidden="true"></div>
-        <div class="service-floats package-floats" aria-hidden="true"><span class="service-float service-float-one"></span><span class="service-float service-float-two"></span><span class="service-float service-float-three"></span></div>
-        <div class="container packages-hero-layout">
-          <div class="service-hero-copy reveal">
-            <p class="eyebrow">Google Ads packages</p>
-            <h1 id="packages-title">Google Ads packages built for local business growth</h1>
-            <p class="hero-subtitle">Choose the level of support that fits your business. Every package is focused on generating measurable calls, enquiries and booking opportunities.</p>
-            <div class="hero-actions"><a class="btn btn-primary" href="#package-cards">Compare Packages</a><a class="btn btn-secondary" href="/#contact">Talk to Adnilo</a></div>
-          </div>
-          <div class="packages-visual reveal" aria-hidden="true">
-            <div class="package-orbit package-orbit-one"></div>
-            <div class="package-orbit package-orbit-two"></div>
-            <div class="package-visual-card glass-panel">
-              <span>Pick a level</span>
-              <strong>Starter</strong>
-              <strong>Growth</strong>
-              <strong>Scale</strong>
-              <p>No checkout. No automatic charge. The final plan is confirmed after review.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section class="trust-strip" aria-label="Package pricing note"><div class="container"><p>Final pricing depends on advertising requirements, number of services, locations and campaign complexity.</p></div></section>
+      <nav class="breadcrumb container" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><span aria-current="page">Packages</span></nav>
       <section class="section packages-section" id="package-cards" aria-labelledby="package-cards-title">
         <div class="container">
-          <div class="section-heading reveal"><p class="eyebrow dark">Packages</p><h2 id="package-cards-title">Choose the support level that fits the job.</h2></div>
+          <h1 id="package-cards-title">Google Ads Packages</h1>
           <div class="package-grid">
             ${packages.map(packageCard).join("\n")}
           </div>
+          <p class="package-pricing-note">Final pricing depends on advertising requirements, number of services, locations and campaign complexity.</p>
         </div>
       </section>
       <section class="section package-comparison-section" id="comparison" aria-labelledby="comparison-title">
         <div class="container">
           <div class="section-heading reveal"><p class="eyebrow dark">Compare</p><h2 id="comparison-title">What is included in each package.</h2></div>
+          <p class="comparison-hint">Scroll the table to compare all three packages.</p>
           <div class="comparison-scroll reveal" tabindex="0" aria-label="Package comparison table">
             <table class="comparison-table">
               <caption>Adnilo Google Ads package comparison</caption>
-              <thead><tr><th scope="col">Service</th>${packages.map((item) => `<th scope="col">${escapeHtml(item.name)}<span>${escapeHtml(item.price)}</span></th>`).join("")}</tr></thead>
+              <thead><tr><th scope="col">Service</th>${packages.map((item) => `<th scope="col">${escapeHtml(item.name)}<span>${escapeHtml(item.price)}/month</span></th>`).join("")}</tr></thead>
               <tbody>
                 ${comparisonRows.map((row) => `<tr><th scope="row">${escapeHtml(row[0])}</th><td>${comparisonCell(row[1])}</td><td>${comparisonCell(row[2])}</td><td>${comparisonCell(row[3])}</td></tr>`).join("\n                ")}
               </tbody>
@@ -1336,9 +1310,9 @@ function packagePage() {
             <h2 id="packages-final-title">Ready to choose your Google Ads package?</h2>
           </div>
           <div class="final-cta-actions">
-            <a class="btn btn-primary" href="${packageContactHref("starter")}" data-package-select-link data-package-name="Starter" data-package-price="From £300" data-package-source="packages-final">Choose Starter</a>
-            <a class="btn btn-primary" href="${packageContactHref("growth")}" data-package-select-link data-package-name="Growth" data-package-price="£599" data-package-source="packages-final">Choose Growth</a>
-            <a class="btn btn-secondary" href="${packageContactHref("scale")}" data-package-select-link data-package-name="Scale" data-package-price="£999+" data-package-source="packages-final">Discuss Scale</a>
+            <a class="btn btn-primary" href="${packageContactHref("starter")}" data-package-select-link data-package-name="Starter" data-package-price="${escapeHtml(packageBySlug.starter.price)}" data-package-source="packages-final">Choose Starter</a>
+            <a class="btn btn-primary" href="${packageContactHref("growth")}" data-package-select-link data-package-name="Growth" data-package-price="${escapeHtml(packageBySlug.growth.price)}" data-package-source="packages-final">Choose Growth</a>
+            <a class="btn btn-secondary" href="${packageContactHref("scale")}" data-package-select-link data-package-name="Scale" data-package-price="${escapeHtml(packageBySlug.scale.price)}" data-package-source="packages-final">Discuss Scale</a>
           </div>
         </div>
       </section>
@@ -1348,7 +1322,6 @@ function packagePage() {
     title,
     description,
     canonical,
-    headerOptions: { resultsHref: "/#results", contactHref: "/#contact" },
     main,
     structuredData: [breadcrumb, serviceSchema, faqSchema],
   });
@@ -1380,24 +1353,14 @@ function homePage() {
 
   const main = `    <main id="main-content" class="home-page">
       <section class="hero" aria-labelledby="hero-title">
-        ${heroArt()}
-        <div class="hero-wash" aria-hidden="true"></div>
-        <div class="hero-motion" aria-hidden="true">
-          <span class="hero-glow hero-glow-one"></span>
-          <span class="hero-glow hero-glow-two"></span>
-          <span class="hero-glow hero-glow-three"></span>
-          <span class="hero-object hero-object-orb"></span>
-          <span class="hero-object hero-object-ring"></span>
-          <span class="hero-object hero-object-pink"></span>
-          <span class="hero-object hero-object-capsule"></span>
-        </div>
         <div class="container hero-content reveal">
-          <h1 id="hero-title">Google Ads that turn clicks into booked jobs.</h1>
-          <p class="hero-subtitle">Adnilo helps local service businesses get more calls, enquiries, and bookings through high-intent Google Ads.</p>
-          <div class="hero-actions"><a class="btn btn-primary" href="/packages">I Want Leads</a></div>
+          <h1 id="hero-title">Turn Google searches into <em>qualified enquiries.</em></h1>
+          <p class="hero-subtitle">Google Ads strategy, landing pages and conversion tracking for service businesses that want clearer reporting and more opportunities to win customers.</p>
+          <div class="hero-actions"><a class="btn btn-primary" href="#contact">Request a Free Audit</a><a class="btn btn-secondary" href="/packages">View Packages</a></div>
+          <p class="hero-footnote">Focused on leads that matter — calls, enquiries and booked work. No unrealistic guarantees.</p>
         </div>
       </section>
-      <section class="trust-strip" aria-label="Who Adnilo helps"><div class="container"><p>Built for cleaning companies, dentists, trades, clinics, gyms and local service brands.</p></div></section>
+      <section class="trust-strip" aria-label="Who Adnilo helps"><div class="container"><p>Specialist Google Ads management for cleaning, home services, trades, clinics and other local businesses.</p></div></section>
       <section class="section about" id="about" aria-labelledby="about-title">
         <div class="container two-column">
           <div class="section-copy reveal">
@@ -1411,6 +1374,54 @@ function homePage() {
               <div><strong>Intent</strong><span>Campaigns shaped around searches that suggest real demand.</span></div>
               <div><strong>Tracking</strong><span>Calls, forms and useful actions checked before decisions are made.</span></div>
               <div><strong>Clarity</strong><span>Simple reporting on what changed and what should happen next.</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section industry-section" id="industries" aria-labelledby="industry-title">
+        <div class="container">
+          <div class="section-heading reveal">
+            <p class="eyebrow dark">Who we work with</p>
+            <h2 id="industry-title">Built for businesses where every enquiry counts.</h2>
+            <p class="industry-intro">A local service campaign needs the right locations, the right search intent and a clear path from click to customer.</p>
+          </div>
+          <div class="industry-grid">
+            <article>
+              <span>Home services</span>
+              <h3>Cleaning & property services</h3>
+              <p>Focus on relevant service areas, job types and enquiry quality.</p>
+            </article>
+            <article>
+              <span>Skilled trades</span>
+              <h3>Roofing & trades</h3>
+              <p>Capture urgent and planned-service searches without wasting budget on irrelevant terms.</p>
+            </article>
+            <article>
+              <span>Appointment-led</span>
+              <h3>Clinics & local practices</h3>
+              <p>Build clearer routes from search to appointment enquiry, with appropriate tracking and privacy controls.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+      <section class="section differentiation-section" aria-labelledby="difference-title">
+        <div class="container">
+          <div class="section-heading reveal">
+            <p class="eyebrow dark">Why Adnilo</p>
+            <h2 id="difference-title">Know where your advertising money goes.</h2>
+          </div>
+          <div class="difference-grid">
+            <div>
+              <h3>Clarity before spend</h3>
+              <p>Start with your service, geography, landing page and measurement setup — not an arbitrary budget increase.</p>
+            </div>
+            <div>
+              <h3>Useful conversion tracking</h3>
+              <p>Understand calls and form submissions instead of judging success on clicks alone.</p>
+            </div>
+            <div>
+              <h3>Direct communication</h3>
+              <p>Understand what changed, why it changed and what comes next.</p>
             </div>
           </div>
         </div>
@@ -1453,18 +1464,49 @@ ${services.map((service, index) => `<a class="card service-card service-link-car
       <section class="section founder" aria-labelledby="founder-title">
         <div class="container founder-panel reveal">
           <div><p class="eyebrow dark">Founder-led delivery</p><h2 id="founder-title">Small agency. Direct communication. Clear results.</h2><p>You work directly with the person managing your campaigns — no confusing reports, no hiding behind jargon.</p></div>
-          <div class="founder-shape" aria-hidden="true"><span></span><span></span><span></span></div>
+        </div>
+      </section>
+      <section class="section faq-section" id="faq" aria-labelledby="faq-title">
+        <div class="container faq-layout">
+          <div>
+            <p class="eyebrow dark">Frequently asked questions</p>
+            <h2 id="faq-title">Straight answers before you commit.</h2>
+            <p>Still have questions? <a href="#contact">Ask us about your account.</a>
+            </p>
+          </div>
+          <div class="faq-items">
+            <details>
+              <summary>Is the Google Ads budget included in your fee?</summary>
+              <p>No. Google advertising spend is separate from Adnilo's management fee and is paid to Google.</p>
+            </details>
+            <details>
+              <summary>Can you work with an existing Google Ads account?</summary>
+              <p>Yes. We can review an existing account, identify tracking and campaign issues, and recommend whether to optimise or rebuild parts of it.</p>
+            </details>
+            <details>
+              <summary>Can you guarantee a number of leads?</summary>
+              <p>No reputable agency can guarantee a fixed number of qualified enquiries. Results depend on competition, budget, location, demand and your website.</p>
+            </details>
+            <details>
+              <summary>How will I know what is working?</summary>
+              <p>We focus on measurable actions such as calls and forms, alongside spend and campaign performance. Tracking limitations are explained rather than hidden.</p>
+            </details>
+            <details>
+              <summary>Do I need a new website?</summary>
+              <p>Not always. We review your current pages first and recommend landing-page changes only where they are useful.</p>
+            </details>
+          </div>
         </div>
       </section>
       <section class="section contact" id="contact" aria-labelledby="contact-title">
         <div class="container contact-layout">
           <div class="section-copy reveal"><p class="eyebrow dark">Free audit</p><h2 id="contact-title">Ready to get more leads?</h2><p>Tell us where you are now and we will look for the fastest route to more useful calls, enquiries and bookings.</p></div>
-${contactForm("Request Free Audit")}
+${contactForm("Request a Free Audit")}
         </div>
       </section>
     </main>`;
 
-  return pageShell({ title, description, canonical, headerOptions: { resultsHref: "#results", contactHref: "#contact" }, main, structuredData: [org, website] });
+  return pageShell({ title, description, canonical, main, structuredData: [org, website] });
 }
 
 function legalPage({ file, title, description, h1, intro, sections }) {
@@ -1479,8 +1521,6 @@ function legalPage({ file, title, description, h1, intro, sections }) {
   };
   const main = `    <main id="main-content" class="legal-page">
       <section class="hero legal-hero" aria-labelledby="legal-title">
-        ${heroArt()}
-        <div class="hero-wash" aria-hidden="true"></div>
         <div class="container service-hero-copy reveal">
           <p class="eyebrow">Adnilo website information</p>
           <h1 id="legal-title">${escapeHtml(h1)}</h1>
@@ -1501,8 +1541,6 @@ function notFoundPage() {
   const description = "The page you requested could not be found. Visit Adnilo services or return to the homepage.";
   const main = `    <main id="main-content" class="not-found-page">
       <section class="hero legal-hero" aria-labelledby="not-found-title">
-        ${heroArt()}
-        <div class="hero-wash" aria-hidden="true"></div>
         <div class="container service-hero-copy reveal">
           <p class="eyebrow">404</p>
           <h1 id="not-found-title">This page is not here.</h1>
@@ -1521,6 +1559,72 @@ ${services.slice(0, 6).map((service) => `<a class="card service-card service-lin
     </main>`;
   writeFileSync("404.html", pageShell({ title, description, canonical: `${siteUrl}/404.html`, main, noindex: true }));
 }
+
+writeFileSync("about.html", pageShell({
+  title: "About Adnilo | Adnilo",
+  description: "Learn about Adnilo's founder-led Google Ads management, conversion tracking and local service business focus.",
+  canonical: siteUrl + "/about.html",
+  main: `<main id="main-content" class="container editorial">
+    <p class="eyebrow">About Adnilo</p>
+    <h1>Focused paid search for businesses that need better enquiries.</h1>
+    <p>Adnilo is a founder-led digital advertising agency specialising in Google Ads for local service businesses. We focus on the practical work behind a useful enquiry: understanding search intent, choosing the right locations, building relevant pages and measuring what happens after a click.</p>
+    <h2>What we believe</h2>
+    <div class="editorial-grid">
+      <article>
+        <h3>Clarity over jargon</h3>
+        <p>You should understand what your budget is doing and what changes are being made.</p>
+      </article>
+      <article>
+        <h3>Measurement over vanity</h3>
+        <p>Clicks are not customers. We prioritise calls, form enquiries and other meaningful actions.</p>
+      </article>
+      <article>
+        <h3>Improvement over promises</h3>
+        <p>We test, learn and optimise rather than guarantee a number of leads that no agency can control.</p>
+      </article>
+    </div>
+    <h2>How we work</h2>
+    <p>We begin with an account and landing-page review, identify tracking gaps, then prioritise the highest-impact fixes. Campaign structure, search terms, ad copy, locations and conversion routes are reviewed as data becomes available.</p>
+    <p>Adnilo works directly with clients and aims to make recommendations in plain English. We don't claim to be the biggest agency, and we won't invent performance figures to look like one.</p>
+    <div class="editorial-cta">
+      <h2>Want a second opinion on your campaigns?</h2>
+      <p>Tell us what you sell, where you operate and what you want to improve.</p><a class="btn btn-primary" href="/#contact">Request a Free Audit</a>
+    </div>
+  </main>`,
+}));
+
+writeFileSync("case-studies.html", pageShell({
+  title: "Case Studies & Our Approach | Adnilo",
+  description: "See how Adnilo evaluates Google Ads campaigns and what evidence matters when assessing performance.",
+  canonical: siteUrl + "/case-studies.html",
+  main: `<main id="main-content" class="container editorial">
+    <p class="eyebrow">Evidence & methodology</p>
+    <h1>Real performance needs real evidence.</h1>
+    <p>We believe case studies should show the starting point, the work performed, the period measured and the outcome — with context. Until client-approved case studies are ready to publish, here's how we assess and improve an advertising account.</p>
+    <div class="editorial-grid">
+      <article>
+        <h3>01. Establish the baseline</h3>
+        <p>Review spend, campaign structure, search terms, locations, landing pages and conversion measurement.</p>
+      </article>
+      <article>
+        <h3>02. Prioritise improvements</h3>
+        <p>Fix avoidable waste, align ads with services and improve the path to an enquiry.</p>
+      </article>
+      <article>
+        <h3>03. Report what changed</h3>
+        <p>Compare meaningful actions and lead quality where the available data supports it, including limitations.</p>
+      </article>
+    </div>
+    <h2>What a proper case study should include</h2>
+    <p>Business sector and service area, objective, starting performance, timeframe, budget context, changes implemented, tracked outcomes and a note on attribution limitations. We won't present example numbers as verified client results.</p>
+    <h2>What success means</h2>
+    <p>A lower cost per click is not automatically better. More leads are not automatically better if they are irrelevant. We look at useful enquiries and the quality signals a business can reliably measure.</p>
+    <div class="editorial-cta">
+      <h2>Let us review your Google Ads account.</h2>
+      <p>We can start with the tracking, targeting and conversion path before recommending more spend.</p><a class="btn btn-primary" href="/#contact">Request a Free Audit</a>
+    </div>
+  </main>`,
+}));
 
 writeFileSync("index.html", homePage());
 writeFileSync("packages.html", packagePage());
@@ -1566,6 +1670,8 @@ const sitemapUrls = [
   ...services.map((service) => `${siteUrl}/${service.slug}.html`),
   `${siteUrl}/privacy.html`,
   `${siteUrl}/terms.html`,
+  `${siteUrl}/about.html`,
+  `${siteUrl}/case-studies.html`,
 ];
 
 writeFileSync(
