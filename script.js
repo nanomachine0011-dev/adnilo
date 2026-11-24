@@ -12,9 +12,9 @@ const mobileNavQuery = window.matchMedia("(max-width: 980px)");
 const formSuccessMessage = "Thanks — your enquiry has been sent.";
 const formErrorMessage = "We could not send your enquiry. Please try again.";
 const packageChoices = {
-  starter: { value: "Starter - From £300", name: "Starter", price: "From £300" },
-  growth: { value: "Growth - £599", name: "Growth", price: "£599" },
-  scale: { value: "Scale - £999+", name: "Scale", price: "£999+" },
+  starter: { value: "Starter - From £499", name: "Starter", price: "From £499" },
+  growth: { value: "Growth - £999", name: "Growth", price: "£999" },
+  scale: { value: "Scale - £2,000+", name: "Scale", price: "£2,000+" },
 };
 const selectedPackageSlug = new URLSearchParams(window.location.search).get("package")?.toLowerCase() || "";
 
